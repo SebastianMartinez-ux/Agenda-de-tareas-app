@@ -116,7 +116,7 @@ class TaskController:
         indice = self.vista.obtener_tarea_seleccionada()
         if indice is not None:
             self.modelo.eliminar_tarea(dia, indice)
-            print(f"🗑️ Esa tarea en {dia} fue completada Índice: {indice}")
+            print(f"🗑️  tarea en {dia} fue completada Índice: {indice}")
             self.actualizar_lista()
 
     def actualizar_lista(self):
