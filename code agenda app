@@ -1,0 +1,134 @@
+import tkinter as tk
+from tkinter import ttk
+
+# =================== MODELO ===================
+class TaskModel:
+    """
+    El cerebro del operativo. Aquí se guardan las tareas de la semana.
+    """
+    def __init__(self):
+        self.tareas = {dia: [] for dia in ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]}
+
+    def agregar_tarea(self, dia, descripcion):
+        if descripcion and dia in self.tareas:
+            self.tareas[dia].append({"descripcion": descripcion, "completada": False})
+
+    def completar_tarea(self, dia, indice):
+        if dia in self.tareas and 0 <= indice < len(self.tareas[dia]):
+            self.tareas[dia][indice]["completada"] = not self.tareas[dia][indice]["completada"]
+
+    def eliminar_tarea(self, dia, indice):
+        if dia in self.tareas and 0 <= indice < len(self.tareas[dia]):
+            del self.tareas[dia][indice]
+
+    def obtener_tareas(self, dia):
+        return self.tareas.get(dia, [])
+
+# =================== VISTA ===================
+class TaskView:
+    """
+    Esta es la fachada. Aquí es donde el usuario mete mano y ve lo que está haciendo, como una libreta pero digital.
+    """
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Mi Agenda")
+        self.root.geometry("500x500")
+
+        self.frame = ttk.Frame(self.root, padding=10)
+        self.frame.pack(fill=tk.BOTH, expand=True)
+
+        self.dia_var = tk.StringVar()
+        self.combo_dia = ttk.Combobox(
+            self.frame, textvariable=self.dia_var,
+            values=["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
+        )
+        self.combo_dia.set("Lunes")
+        self.combo_dia.pack(pady=5)
+
+        self.entrada = ttk.Entry(self.frame, width=50)
+        self.entrada.pack(pady=5)
+
+        self.boton_agregar = ttk.Button(self.frame, text="Agrega una tarea para hoy")
+        self.boton_agregar.pack(pady=5)
+
+        self.lista = tk.Listbox(self.frame, font=("Courier", 12), selectmode=tk.SINGLE)
+        self.lista.pack(pady=10, fill=tk.BOTH, expand=True)
+
+        self.boton_completar = ttk.Button(self.frame, text="Tarea completada")
+        self.boton_completar.pack(pady=5)
+
+        self.boton_eliminar = ttk.Button(self.frame, text="Borrar tarea")
+        self.boton_eliminar.pack(pady=5)
+
+    def obtener_dia(self):
+        return self.dia_var.get()
+
+    def obtener_descripcion(self):
+        return self.entrada.get()
+
+    def limpiar_entrada(self):
+        self.entrada.delete(0, tk.END)
+
+    def mostrar_tareas(self, tareas):
+        self.lista.delete(0, tk.END)
+        for tarea in tareas:
+            estado = "[✔]" if tarea["completada"] else "[ ]"
+            self.lista.insert(tk.END, f"{estado} {tarea['descripcion']}")
+
+    def obtener_tarea_seleccionada(self):
+        seleccion = self.lista.curselection()
+        return seleccion[0] if seleccion else None
+
+# =================== CONTROLADOR ===================
+class TaskController:
+    """
+    Este es el man que conecta el cuento. Agarra lo que ve y lo mete en el sistema.
+    """
+    def __init__(self, modelo, vista):
+        self.modelo = modelo
+        self.vista = vista
+
+        self.vista.boton_agregar.config(command=self.agregar_tarea)
+        self.vista.boton_completar.config(command=self.completar_tarea)
+        self.vista.boton_eliminar.config(command=self.eliminar_tarea)
+        self.vista.combo_dia.bind("<<ComboboxSelected>>", lambda e: self.actualizar_lista())
+
+        self.actualizar_lista()
+
+    def agregar_tarea(self):
+        dia = self.vista.obtener_dia()
+        descripcion = self.vista.obtener_descripcion()
+        self.modelo.agregar_tarea(dia, descripcion)
+        print(f"📝  nueva tarea {dia}: '{descripcion}'")
+        self.vista.limpiar_entrada()
+        self.actualizar_lista()
+
+    def completar_tarea(self):
+        dia = self.vista.obtener_dia()
+        indice = self.vista.obtener_tarea_seleccionada()
+        if indice is not None:
+            self.modelo.completar_tarea(dia, indice)
+            print(f"✅ tarea en el {dia} ya está lista Índice: {indice}")
+            self.actualizar_lista()
+
+    def eliminar_tarea(self):
+        dia = self.vista.obtener_dia()
+        indice = self.vista.obtener_tarea_seleccionada()
+        if indice is not None:
+            self.modelo.eliminar_tarea(dia, indice)
+            print(f"🗑️ Esa tarea en {dia} fue completada Índice: {indice}")
+            self.actualizar_lista()
+
+    def actualizar_lista(self):
+        dia = self.vista.obtener_dia()
+        tareas = self.modelo.obtener_tareas(dia)
+        print(f"📆 Mostrando lo que hay para el {dia}. Tienes {len(tareas)} cosas pendientes")
+        self.vista.mostrar_tareas(tareas)
+
+# =================== MAIN ===================
+if __name__ == "__main__":
+    root = tk.Tk()
+    modelo = TaskModel()      
+    vista = TaskView(root)   
+    TaskController(modelo, vista)  
+    root.mainloop()
