@@ -1,43 +1,115 @@
-Qué hace?
+# 🗓️ Agenda Semanal en Tkinter
 
-Es una agenda semanal con interfaz gráfica hecha en Tkinter, que permite:
-	•	Agregar tareas por día.
-	•	Marcar tareas como completadas.
-	•	Eliminar tareas.
-	•	Ver las tareas del día seleccionado.
+Una aplicación de escritorio sencilla para organizar tus tareas semanales, desarrollada en Python utilizando el patrón *MVC (Modelo - Vista - Controlador)* con Tkinter.
 
-⸻
+---
 
-🔧 ¿Qué clases usa?
+## 📌 Características
 
-1. TaskModel (Modelo):
+- ✅ Agregar tareas por día de la semana.
+- 📆 Visualizar tareas según el día seleccionado.
+- ✔️ Marcar tareas como completadas o no.
+- 🗑️ Eliminar tareas.
+- 🎨 Interfaz gráfica intuitiva con tkinter.
 
-Guarda las tareas por día en un diccionario. Maneja:
-	•	Agregar
-	•	Completar
-	•	Eliminar
-	•	Obtener tareas
+---
 
-⸻
+## 🧱 Estructura del Proyecto
 
-2. TaskView (Vista):
 
-Interfaz gráfica. Tiene:
-	•	Combo para seleccionar el día
-	•	Campo para escribir tareas
-	•	Lista de tareas
-	•	Botones para agregar, completar y borrar
+agenda_semanal.py
+├── TaskModel       # Modelo: lógica de datos
+├── TaskView        # Vista: interfaz de usuario
+└── TaskController  # Controlador: interacción entre vista y modelo
 
-⸻
 
-3. TaskController (Controlador):
+---
 
-Conecta la vista y el modelo. Responde a clics, actualiza datos y la interfaz.
+## 🧠 Modelo: TaskModel
 
-⸻
+Administra las tareas, almacenadas por día en un diccionario.
 
-🔄 Flujo:
-	1.	El usuario interactúa con la vista.
-	2.	El controlador maneja la lógica.
-	3.	El modelo guarda los datos.
-	4.	La vista se actualiza.
+python
+self.tareas = {
+  "Lunes": [{"descripcion": "Ir al gym", "completada": False}],
+  ...
+}
+
+
+### Métodos
+
+| Método | Descripción |
+|--------|-------------|
+| agregar_tarea(dia, descripcion) | Agrega una nueva tarea. |
+| completar_tarea(dia, indice) | Cambia el estado de completado. |
+| eliminar_tarea(dia, indice) | Borra una tarea. |
+| obtener_tareas(dia) | Devuelve tareas de un día. |
+
+---
+
+## 🖼️ Vista: TaskView
+
+Interfaz gráfica que permite al usuario interactuar con las tareas.
+
+### Componentes
+- Selector de día (ttk.Combobox)
+- Entrada de texto para tareas (ttk.Entry)
+- Lista de tareas (tk.Listbox)
+- Botones para agregar, completar y eliminar
+
+---
+
+## 🎮 Controlador: TaskController
+
+Conecta la interfaz (vista) con la lógica (modelo). Maneja eventos y actualiza la interfaz.
+
+### Funciones clave
+- agregar_tarea()
+- completar_tarea()
+- eliminar_tarea()
+- actualizar_lista()
+
+---
+
+## ▶️ Cómo ejecutar
+
+1. Asegúrate de tener Python 3 instalado.
+2. Ejecuta el script:
+
+bash
+python agenda_semanal.py
+
+
+---
+
+## 🧰 Requisitos
+
+- Python 3.7 o superior
+- tkinter (incluido con Python)
+
+---
+
+## 📸 Captura de pantalla (opcional)
+
+Agrega aquí una imagen de la interfaz si deseas.
+
+---
+
+## 🚀 Posibles mejoras
+
+- Guardar tareas en archivos (JSON o base de datos)
+- Añadir recordatorios o notificaciones
+- Soporte para múltiples usuarios
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia MIT.
+
+---
+
+## 👨‍💻 Autor
+
+Desarrollado por *Sebastián Martínez de Medina* – estudiante de Ingeniería de Sistemas.  
+Inspirado en la simplicidad de organizar el día a día con código.
