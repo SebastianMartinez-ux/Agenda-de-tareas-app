@@ -1,0 +1,43 @@
+Qué hace?
+
+Es una agenda semanal con interfaz gráfica hecha en Tkinter, que permite:
+	•	Agregar tareas por día.
+	•	Marcar tareas como completadas.
+	•	Eliminar tareas.
+	•	Ver las tareas del día seleccionado.
+
+⸻
+
+🔧 ¿Qué clases usa?
+
+1. TaskModel (Modelo):
+
+Guarda las tareas por día en un diccionario. Maneja:
+	•	Agregar
+	•	Completar
+	•	Eliminar
+	•	Obtener tareas
+
+⸻
+
+2. TaskView (Vista):
+
+Interfaz gráfica. Tiene:
+	•	Combo para seleccionar el día
+	•	Campo para escribir tareas
+	•	Lista de tareas
+	•	Botones para agregar, completar y borrar
+
+⸻
+
+3. TaskController (Controlador):
+
+Conecta la vista y el modelo. Responde a clics, actualiza datos y la interfaz.
+
+⸻
+
+🔄 Flujo:
+	1.	El usuario interactúa con la vista.
+	2.	El controlador maneja la lógica.
+	3.	El modelo guarda los datos.
+	4.	La vista se actualiza.
