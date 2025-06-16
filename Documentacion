@@ -2,7 +2,7 @@
 
 Una aplicación de escritorio sencilla para organizar tus tareas semanales, desarrollada en Python utilizando el patrón *MVC (Modelo - Vista - Controlador)* con Tkinter.
 
----
+
 
 ## 📌 Características
 
@@ -12,7 +12,7 @@ Una aplicación de escritorio sencilla para organizar tus tareas semanales, desa
 - 🗑️ Eliminar tareas.
 - 🎨 Interfaz gráfica intuitiva con tkinter.
 
----
+
 
 ## 🧱 Estructura del Proyecto
 
@@ -23,7 +23,6 @@ agenda_semanal.py
 └── TaskController  # Controlador: interacción entre vista y modelo
 
 
----
 
 ## 🧠 Modelo: TaskModel
 
@@ -45,7 +44,7 @@ self.tareas = {
 | eliminar_tarea(dia, indice) | Borra una tarea. |
 | obtener_tareas(dia) | Devuelve tareas de un día. |
 
----
+
 
 ## 🖼️ Vista: TaskView
 
@@ -57,7 +56,7 @@ Interfaz gráfica que permite al usuario interactuar con las tareas.
 - Lista de tareas (tk.Listbox)
 - Botones para agregar, completar y eliminar
 
----
+
 
 ## 🎮 Controlador: TaskController
 
@@ -69,7 +68,6 @@ Conecta la interfaz (vista) con la lógica (modelo). Maneja eventos y actualiza 
 - eliminar_tarea()
 - actualizar_lista()
 
----
 
 ## ▶️ Cómo ejecutar
 
@@ -80,20 +78,20 @@ bash
 python agenda_semanal.py
 
 
----
+
 
 ## 🧰 Requisitos
 
 - Python 3.7 o superior
 - tkinter (incluido con Python)
 
----
+
 
 ## 📸 Captura de pantalla (opcional)
 
 Agrega aquí una imagen de la interfaz si deseas.
 
----
+
 
 ## 🚀 Posibles mejoras
 
@@ -101,13 +99,13 @@ Agrega aquí una imagen de la interfaz si deseas.
 - Añadir recordatorios o notificaciones
 - Soporte para múltiples usuarios
 
----
+
 
 ## 📄 Licencia
 
 Este proyecto está bajo la licencia MIT.
 
----
+
 
 ## 👨‍💻 Autor
 
